@@ -9,19 +9,11 @@ on:
 jobs:
   argos:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: current
-
-      # - name: Install dependencies
-      #   run: npm ci
-
       - name: Upload screenshots to argos-ci.com
         continue-on-error: true
-        run: npx argos upload ./screenshots
+        run: npm exec @argos-ci/cli upload ./screenshots
+        env:
+          ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
